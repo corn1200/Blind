@@ -1,5 +1,7 @@
 // 게시물
 const mongoose = require("mongoose");
+// 항목이 추가될 때 마다 자동으로 증가하는 필드를 제공하는 라이브러리
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 const Schema = mongoose.Schema;
 
 const Article = new Schema({
@@ -17,5 +19,8 @@ const Article = new Schema({
   articleImgAddress: { type: String },
   mention: { type: Schema.Types.ObjectId, ref: "User" },
 });
+
+// Auto Increment할 필드를 생성합니다
+Article.plugin(AutoIncrement, { inc_field: "id" });
 
 module.exports = Article;
