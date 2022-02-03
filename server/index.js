@@ -1,6 +1,7 @@
 const express = require("express");
-const cors = require("cors");
 // Cros Origin Resource Sharing 문제를 해결해 주는 라이브러리입니다
+const cors = require("cors");
+const API = require("./api");
 const app = express();
 const PORT = 3000;
 
@@ -14,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });
+
+app.get("/article/:id", API.getArticle);
 // e: 라우트 작성
 
 app.listen(PORT, "localhost", () => {
