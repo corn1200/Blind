@@ -3,7 +3,7 @@ const router = express.Router();
 const { User } = require("../mongoose/model");
 
 // 로그인 요청
-router.get("/user", async (req, res) => {
+router.get("/user/login", async (req, res) => {
   const { email, password } = req.body;
 
   // 해당 이메일의 유저가 존재 하는지 확인합니다
@@ -26,6 +26,20 @@ router.get("/user", async (req, res) => {
 
   // 공개 돼선 안될 비밀번호, salt 등의 정보를 제외하고 전송합니다
   res.send({ email: loginUser.email, nickname: loginUser.nickname });
+});
+
+// 회원가입
+router.post("/user/create", async (req, res) => {
+  const { nickname, company, email, password } = req.body;
+  const newUser = await User({
+    email,
+    nickname,
+    password,
+    company,
+  }).save();
+
+  console.log(newUser);
+  res.send(newUser._id ? true : false);
 });
 
 module.exports = router;
