@@ -1,7 +1,8 @@
 // 회사
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const Company = new mongoose.Schema({
+const Company = new Schema({
   title: { type: String, required: true, unique: true },
   createAt: { type: Date, default: Date.now, required: true },
   imgAddress: { type: String, default: null },
