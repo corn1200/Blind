@@ -5,7 +5,8 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const Schema = mongoose.Schema;
 
 const Article = new Schema({
-  title: { type: String, required: true, unique: true },
+  author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  title: { type: String, required: true },
   content: { type: String, required: true },
   createdAt: { type: Date, default: Date.now, required: true },
   board: { type: Schema.Types.ObjectId, ref: "Board", required: true },
@@ -21,6 +22,6 @@ const Article = new Schema({
 });
 
 // Auto Increment할 필드를 생성합니다
-Article.plugin(AutoIncrement, { inc_field: "id" });
+Article.plugin(AutoIncrement, { inc_field: "key" });
 
 module.exports = Article;
