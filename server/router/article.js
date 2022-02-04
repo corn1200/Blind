@@ -17,4 +17,40 @@ router.post("/article/create", async (req, res) => {
   res.send(newArticle);
 });
 
+// 게시글 수정하기
+router.patch("/article/update", async (req, res) => {
+  const { id, author, content } = req.body;
+  const updateArticle = await Article.findOneAndUpdate(
+    { _id: id, author: author },
+    { content: content },
+    { new: true }
+  );
+  res.send(updateArticle);
+});
+
+// 게시글 DB에서 삭제하기(HARD DELETE)
+router.delete("/article/delete/hard", async (req, res) => {
+  const { id, author } = req.body;
+  const deletedArticle = await Article.deleteOne({
+    _id: id,
+    author: author,
+  });
+  res.send(deletedArticle);
+});
+
+// 게시글 삭제 상태로 만들기(SOFT DELETE)
+router.delete("/article/delete/soft", async (req, res) => {
+  const { id, author } = req.body;
+  const deletedArticle = await Article.findOneAndUpdate(
+    {
+      _id: id,
+      author: author,
+    },
+    {
+      deleteTime: new Date().getTime() + 30 * 24 * 60 * 60 * 1000,
+    }
+  );
+  res.send(deletedArticle);
+});
+
 module.exports = router;
