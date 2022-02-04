@@ -10,4 +10,11 @@ router.get("/article/:id", async (req, res) => {
   res.send({ article, comment });
 });
 
+// 게시글 추가
+router.post("/article/create", async (req, res) => {
+  const { author, title, content, board } = req.body;
+  const newArticle = await Article({ author, title, content, board }).save();
+  res.send(newArticle);
+});
+
 module.exports = router;
