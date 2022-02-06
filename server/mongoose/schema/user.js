@@ -8,7 +8,7 @@ const User = new Schema({
   email: { type: String, required: true, unique: true },
   hashedPassword: { type: String, required: true },
   salt: { type: String, required: true },
-  createAt: { type: Date, default: Date.now, required: true },
+  createdAt: { type: Date, default: Date.now, required: true },
   nickname: { type: String, required: true, unique: true },
   company: { type: Schema.Types.ObjectId, ref: "Company" },
 });
